@@ -63,6 +63,18 @@
 										<textarea name="message" id="message" rows="6"></textarea>
 									</div>
 								</div>
+								
+								  <head>
+								    <title>reCAPTCHA demo: Simple page</title>
+								    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+								  </head>
+								  <body>
+								    <form action="" method="POST">
+								      <div class="g-recaptcha" data-sitekey="6LfNLlEqAAAAADJeZlc_8Y64x1SvTdyQi3UnDh4B" data-action="LOGIN"></div>
+								      <br/>
+								      <input type="submit" value="Submit">
+								    </form>
+								  </body>
 								<ul class="actions">
 									<li><input type="submit" value="Send Message" class="primary" /></li>
 									<li><input type="reset" value="Clear" /></li>
