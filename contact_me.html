@@ -42,79 +42,42 @@
 				
 
 				<!-- Contact -->
-				<section id="contact">
-					<div class="inner">	
-						<section>
-							<header class="major">
-								<h1>Contact</h1>
-							</header>
-							<form method="post" action="#">
-								<div class="fields">
-									<div class="field half">
-										<label for="name">Name</label>
-										<input type="text" name="name" id="name" />
-									</div>
-									<div class="field half">
-										<label for="email">Email</label>
-										<input type="text" name="email" id="email" />
-									</div>
-									<div class="field">
-										<label for="message">Message</label>
-										<textarea name="message" id="message" rows="6"></textarea>
-									</div>
-								</div>
-								
-								  <head>
-								    <title>reCAPTCHA demo: Simple page</title>
-								    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
-								  </head>
-								  <body>
-								    <form action="" method="POST">
-								      <div class="g-recaptcha" data-sitekey="6LfNLlEqAAAAADJeZlc_8Y64x1SvTdyQi3UnDh4B" data-action="LOGIN"></div>
-								      <br/>
-								      <input type="submit" value="Submit">
-								    </form>
-								  </body>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" class="primary" /></li>
-									<li><input type="reset" value="Clear" /></li>
-								</ul>
-							</form>
-						</section>
-						<section class="split">
-							<section>
-								<div class="contact-method">
-									<span class="icon solid alt fa-envelope"></span>
-									<h3>Email</h3>
-									<p>qnpearson@gmail.com</p>
-								</div>
-							</section>
-							<section>
-								<div class="contact-method">
-									<span class="icon brands alt fa-linkedin-in"></span>
-									<h3>LinkedIn</h3>
-									<a href="https://www.linkedin.com/in/quinn-pearson-4bb37a156/" target="_blank">LinkedIn</a>
-								</div>
-							</section>
-							<section>
-								<div class="contact-method">
-									<span class="icon solid alt fa-phone"></span>
-									<h3>Phone</h3>
-									<span>+1 (631) 678-3325</span>
-								</div>
-							</section>
-							<section>
-								<div class="contact-method">
-									<span class="icon brands alt fa-github"></span>
-									<h3>GitHub</h3>
-									<a href="https://github.com/qnpearson" target="_blank">GitHub</a>
-								</div>
-							</section>
-						</section>
-					</div>
-				</section>
-
-		</div>
+					<section id="contact">
+					  <div class="inner">
+					    <section>
+					      <header class="major">
+					        <h1>Contact</h1>
+					      </header>
+					
+					      <!-- Contact Form -->
+					      <form method="post" action="#">
+					        <div class="fields">
+					          <div class="field half">
+					            <label for="name">Name</label>
+					            <input type="text" name="name" id="name" required />
+					          </div>
+					          <div class="field half">
+					            <label for="email">Email</label>
+					            <input type="email" name="email" id="email" required />
+					          </div>
+					          <div class="field">
+					            <label for="message">Message</label>
+					            <textarea name="message" id="message" rows="6" required></textarea>
+					          </div>
+					        </div>
+					
+					        <!-- reCAPTCHA Integration -->
+					        <div class="g-recaptcha" data-sitekey="6LfNLlEqAAAAADJeZlc_8Y64x1SvTdyQi3UnDh4B" data-action="submit"></div>
+					        <br/>
+					
+					        <!-- Form Actions -->
+					        <ul class="actions">
+					          <li><input type="submit" value="Send Message" class="primary" /></li>
+					          <li><input type="reset" value="Clear" /></li>
+					        </ul>
+					      </form>
+					    </section>
+							</div>
 
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
@@ -124,6 +87,8 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script src="assets/js/recaptcha.js"></script>
+			<script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 
 	</body>
 </html>
