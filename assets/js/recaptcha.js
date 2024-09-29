@@ -1,5 +1,5 @@
 document.getElementById('contact-form').addEventListener('submit', function (e) {
-  e.preventDefault(); // Prevent form from submitting immediately
+  e.preventDefault(); // Prevent default form submission
 
   // Execute reCAPTCHA
   grecaptcha.enterprise.execute('6LfNLlEqAAAAADJeZlc_8Y64x1SvTdyQi3UnDh4B', {action: 'submit'})
@@ -14,7 +14,7 @@ document.getElementById('contact-form').addEventListener('submit', function (e) 
         // Append the hidden field to the form
         document.getElementById('contact-form').appendChild(recaptchaResponseInput);
 
-        // Submit the form after adding the token
+        // Now submit the form to Formspree
         document.getElementById('contact-form').submit();
       } else {
         alert('reCAPTCHA verification failed. Please try again.');
