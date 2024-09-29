@@ -1,58 +1,42 @@
-const {RecaptchaEnterpriseServiceClient} = require('@google-cloud/recaptcha-enterprise');
+document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent default form submission
 
-/**
-  * Create an assessment to analyze the risk of a UI action.
-  *
-  * projectID: Your Google Cloud Project ID.
-  * recaptchaSiteKey: The reCAPTCHA key associated with the site/app
-  * token: The generated token obtained from the client.
-  * recaptchaAction: Action name corresponding to the token.
-  */
-async function createAssessment({
-  // TODO: Replace the token and reCAPTCHA action variables before running the sample.
-  projectID = "quinn-pearson-1727560901063",
-  recaptchaKey = "6LfNLlEqAAAAADJeZlc_8Y64x1SvTdyQi3UnDh4B",
-  token = "action-token",
-  recaptchaAction = "action-name",
-}) {
-  // Create the reCAPTCHA client.
-  // TODO: Cache the client generation code (recommended) or call client.close() before exiting the method.
-  const client = new RecaptchaEnterpriseServiceClient();
-  const projectPath = client.projectPath(projectID);
+  // Execute reCAPTCHA
+  grecaptcha.enterprise.execute('6LfNLlEqAAAAADJeZlc_8Y64x1SvTdyQi3UnDh4B', {action: 'submit'})
+    .then(function (token) {
+      if (token) {
+        // Add the token to the form
+        var input = document.createElement('input');
+        input.setAttribute('type', 'hidden');
+        input.setAttribute('name', 'g-recaptcha-response');
+        input.setAttribute('value', token);
 
-  // Build the assessment request.
-  const request = ({
-    assessment: {
-      event: {
-        token: token,
-        siteKey: recaptchaKey,
-      },
-    },
-    parent: projectPath,
-  });
+        // Append the input to the form
+        document.getElementById('contact-form').appendChild(input);
 
-  const [ response ] = await client.createAssessment(request);
-
-  // Check if the token is valid.
-  if (!response.tokenProperties.valid) {
-    console.log(`The CreateAssessment call failed because the token was: ${response.tokenProperties.invalidReason}`);
-    return null;
-  }
-
-  // Check if the expected action was executed.
-  // The `action` property is set by user client in the grecaptcha.enterprise.execute() method.
-  if (response.tokenProperties.action === recaptchaAction) {
-    // Get the risk score and the reason(s).
-    // For more information on interpreting the assessment, see:
-    // https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment
-    console.log(`The reCAPTCHA score is: ${response.riskAnalysis.score}`);
-    response.riskAnalysis.reasons.forEach((reason) => {
-      console.log(reason);
+        // Now submit the form to Formspree
+        fetch('https://formspree.io/f/your-form-id', {
+          method: 'POST',
+          body: new FormData(document.getElementById('contact-form')),
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        .then(response => {
+          if (response.ok) {
+            alert('Message sent successfully!');
+            document.getElementById('contact-form').reset(); // Clear the form
+          } else {
+            alert('Oops! There was a problem submitting the form.');
+          }
+        })
+        .catch(error => console.error('Form submission error:', error));
+      } else {
+        alert('reCAPTCHA validation failed. Please try again.');
+      }
+    })
+    .catch(function (error) {
+      console.error('Error executing reCAPTCHA:', error);
+      alert('reCAPTCHA error. Please try again.');
     });
-
-    return response.riskAnalysis.score;
-  } else {
-    console.log("The action attribute in your reCAPTCHA tag does not match the action you are expecting to score");
-    return null;
-  }
-}
+});
