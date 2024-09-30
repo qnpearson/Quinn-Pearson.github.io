@@ -123,7 +123,19 @@
 			<script src="assets/js/main.js"></script>
 			<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 			<script src="assets/js/recaptcha.js"></script>
-			
 
-	</body>
+		<!-- Add JavaScript to Validate reCAPTCHA -->
+			<script>
+			function checkRecaptcha() {
+			  var response = grecaptcha.getResponse();
+			  if (response.length === 0) {
+			    alert("Please complete the reCAPTCHA.");
+			    return false; // Prevent form submission
+			  }
+			  return true; // Allow form submission
+			}
+			</script>
+						
+			
+				</body>
 </html>
